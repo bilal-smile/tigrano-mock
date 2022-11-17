@@ -1,13 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { ApiProperty } from '@nestjs/swagger';
 import { getDealerships } from 'src/dealerships/dealerships.data';
 import { getRoles } from '../roles/roles.data';
 
-export type User = {
-  id: number,
-  first_name: string,
-  email: string,
-  role: string,
-  dealership: string
+export class NewUser {
+  @ApiProperty()
+  first_name: string;
+  @ApiProperty()
+  last_name: string;
+  @ApiProperty()
+  email: string;
+  @ApiProperty()
+  role: string;
+  @ApiProperty()
+  dealership: string[];
+}
+
+export class User {
+  @ApiProperty()
+  id: number;
+  @ApiProperty()
+  first_name: string;
+  @ApiProperty()
+  last_name: string;
+  @ApiProperty()
+  email: string;
+  @ApiProperty()
+  role: string;
+  @ApiProperty()
+  dealership: string[];
 }
 
 @Injectable()
@@ -47,7 +68,7 @@ export class UsersService {
   findOne(id: string) {
     return this.users.filter((user: any) => user.id === parseInt(id));
   }
-  create(user: User) {
+  create(user: NewUser) {
     return {
       id: 4,
       first_name: 'Toto',

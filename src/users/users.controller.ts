@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { User, UsersService } from './users.service';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { ApiProperty } from '@nestjs/swagger';
+import { User, NewUser, UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
@@ -12,9 +13,9 @@ export class UsersController {
     findOne(@Param('id') id: string): any {
         return this.userService.findOne(id);
     }
-
+    
     @Post()
-    create(user): object {
+    create(@Body() user: NewUser): object {
         return this.userService.create(user);
     }
 
@@ -24,7 +25,7 @@ export class UsersController {
     }
 
     @Put(':id')
-    update(@Param('id') id: string, user: User): object {
+    update(@Param('id') id: string, @Body() user: User): object {
         return this.userService.update(user);
     }
 }
